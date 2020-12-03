@@ -19,8 +19,12 @@ class MyDataset(Dataset):
         return sample
     
     @staticmethod
-    def load_data(path):
+    def load_data(path, test=False):
         data = pd.read_csv(path, index_col='Id')
+        if test:
+            X, features = data[data.columns].values, data.columns
+            return X, features
+        
         X, y, features = data[data.columns[:-1]].values, data[data.columns[-1]].values, data.columns[:-1]
         
         print(f'Total samples: {len(data)}')
