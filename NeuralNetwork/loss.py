@@ -29,7 +29,6 @@ class LabelSmoothingCrossEntropy(nn.Module):
 class MyLoss(nn.Module):
     def __init__(self, epsilon=0.1):
         super().__init__()
-        # self.criterion = LabelSmoothingCrossEntropy(epsilon=epsilon)
         self.criterion = nn.CrossEntropyLoss()
 
     def forward(self, logits: list, targets: list):

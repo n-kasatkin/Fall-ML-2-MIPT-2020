@@ -21,6 +21,7 @@ class MyDataset(Dataset):
     @staticmethod
     def load_data(path, test=False):
         data = pd.read_csv(path, index_col='Id')
+        
         if test:
             X, features = data[data.columns].values, data.columns
             return X, features

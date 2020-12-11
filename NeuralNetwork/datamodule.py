@@ -13,7 +13,6 @@ class MyDataModule(pl.LightningDataModule):
         super().__init__()
         self.hparams = hparams
 
-        # Transform placeholders
         self.train_dataset = None
         self.val_dataset = None
 
