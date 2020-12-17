@@ -21,12 +21,17 @@ class MyDataset(Dataset):
     @staticmethod
     def load_data(path, test=False):
         data = pd.read_csv(path, index_col='Id')
+        features = data.columns[:-1].values.tolist()
         
         if test:
             X, features = data[data.columns].values, data.columns
             return X, features
         
-        X, y, features = data[data.columns[:-1]].values, data[data.columns[-1]].values, data.columns[:-1]
+        df = data[features].apply(lambda x: np.sum(x), axis=1)
+        data = data[df > 0]
+        data = data[np.all(data >= 0, axis=1)]
+        
+        X, y = data[data.columns[:-1]].values, data[data.columns[-1]].values
         
         print(f'Total samples: {len(data)}')
         counts = np.unique(data["Category"].values, return_counts=True)[1]
